@@ -9,7 +9,11 @@ exports.handler = function (event, context, callback) {
 
       const webhookUrl = event.opts.webhookUrl;
 
-      sessionReport(viewId, periodLength, segmentId).then(r => {
+      // Optional
+      const metrics = event.opts.metrics;
+      const dimensions = event.opts.dimensions;
+
+      sessionReport(viewId, periodLength, segmentId, metrics, dimensions).then(r => {
         const res = Object.assign({
           context: event.opts.context,
           periodLength: periodLength,

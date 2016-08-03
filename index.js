@@ -62,9 +62,13 @@ function sessionReport(viewId, periodLength, segmentId) {
     const thisPeriod = Number(totals[0].values[0]);
     const previousPeriod = Number(totals[1].values[0]);
 
-    const diffRatio = numeral(
-      (thisPeriod - previousPeriod) / previousPeriod
-    ).format('0.00%');
+    var diffRatio = '-';
+
+    if (previousPeriod != 0) {
+      diffRatio = numeral(
+        (thisPeriod - previousPeriod) / previousPeriod
+      ).format('0.00%');
+    }
 
     return {
       thisPeriod: thisPeriod,

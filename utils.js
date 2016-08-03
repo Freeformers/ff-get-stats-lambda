@@ -31,7 +31,10 @@ function getReports(reportRequests) {
   })
 }
 
-function sessionReport(viewId, periodLength, segmentId) {
+const defaultMetrics = [{"expression": "ga:sessions"}];
+const defaultDimensions = [{name: 'ga:segment'}];
+
+function sessionReport(viewId, periodLength, segmentId, metrics = defaultMetrics, dimensions = defaultDimensions) {
   const yesterday = moment().subtract(1, 'day');
 
   const startPoint = yesterday.clone().subtract(periodLength - 1, 'days');
@@ -42,7 +45,8 @@ function sessionReport(viewId, periodLength, segmentId) {
   return getReports([
     {
       viewId: viewId,
-      dimensions: [{name: 'ga:segment'}],
+      dimensions: dimensions,
+      metrics: metrics,
       segments: [{segmentId: segmentId}],
       dateRanges: [
         {
